@@ -1,0 +1,43 @@
+{
+  "name": "searchinghost-easy",
+  "version": "0.1.0",
+  "description": "Beautiful search bars made accessible to any Ghost CMS user",
+  "main": "src/searchinghost-easy.js",
+  "scripts": {
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gmfmi/searchinghost-easy.git"
+  },
+  "keywords": [
+    "ghost",
+    "easy",
+    "search",
+    "searchbar"
+  ],
+  "author": "Gm Fmi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gmfmi/searchinghost-easy/issues"
+  },
+  "homepage": "https://github.com/gmfmi/searchinghost-easy#readme",
+  "files": [
+    "README.md",
+    "LICENSE",
+    "src/searchinghost-easy.js",
+    "dist/"
+  ],
+  "devDependencies": {
+    "delete": "^1.1.0",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.2.0",
+    "gulp-flatmap": "^1.0.2",
+    "gulp-header": "^2.0.9",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-replace": "^1.0.0",
+    "webpack-stream": "^5.2.1"
+  }
+}
