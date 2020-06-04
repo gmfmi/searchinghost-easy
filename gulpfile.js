@@ -59,7 +59,7 @@ function build() {
 
 function watchFiles() {
     isProduction = false;
-    watch(['themes/**/*.html', 'src/searchinghost-easy.js'], { ignoreInitial: false }, generate);
+    watch(['themes/**/*.html', 'src/*.js'], { ignoreInitial: false }, generate);
 }
 
 exports.default = build();
