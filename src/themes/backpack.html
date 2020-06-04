@@ -1,4 +1,10 @@
+<!DOCTYPE html>
+<html>
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         :root {
             --light-grey: #d8dee3;
@@ -9,7 +15,7 @@
             --background-main: #fafafa;
             --borders: #f0f0f0
         }
-        
+
         .searchinghost-easy-overlay {
             display: block;
             position: absolute;
@@ -25,7 +31,7 @@
             text-rendering: optimizeLegibility;
             -webkit-font-smoothing: antialiased
         }
-        
+
         #sge-close {
             z-index: 100;
             position: absolute;
@@ -38,12 +44,12 @@
             fill: var(--light-grey);
             transition: all .3s ease
         }
-        
+
         #sge-close:hover,
         .search-btn:hover {
             fill: var(--medium-grey)
         }
-        
+
         @media screen and (max-width:950px) {
             #sge-close {
                 width: 1.2em;
@@ -52,7 +58,7 @@
                 right: 6px
             }
         }
-        
+
         @media screen and (max-width:568px) {
             #sge-close {
                 width: 1em;
@@ -61,7 +67,7 @@
                 right: 6px
             }
         }
-        
+
         .searchbar-container {
             position: relative;
             width: 100%;
@@ -69,26 +75,26 @@
             background-color: var(--background-alt);
             overflow: hidden
         }
-        
+
         .searchbar-wrapper {
             max-width: 700px;
             margin: 1.5em auto;
             padding: 0 1em
         }
-        
+
         @media screen and (max-width:950px) {
             .searchbar-wrapper {
                 margin: 2.5em auto 1.5em
             }
         }
-        
+
         .form {
             display: flex;
             justify-content: flex-end;
             align-items: stretch;
             border-bottom: 1px solid var(--light-grey)
         }
-        
+
         #sge-input {
             flex-grow: 1;
             flex-shrink: 1;
@@ -100,29 +106,29 @@
             font-weight: 200;
             background-color: transparent
         }
-        
+
         #sge-input:focus {
             outline: 0
         }
-        
+
         #sge-input::placeholder {
             color: var(--light-grey);
             opacity: 1;
             font-weight: 200
         }
-        
+
         #sge-input::-webkit-input-placeholder {
             color: var(--light-grey);
             opacity: 1;
             font-weight: 200
         }
-        
+
         #sge-input::-moz-placeholder {
             color: var(--light-grey);
             opacity: 1;
             font-weight: 200
         }
-        
+
         .search-btn {
             flex-grow: 0;
             position: relative;
@@ -136,7 +142,7 @@
             fill: var(--light-grey);
             transition: all .3s ease
         }
-        
+
         #found-items-counter {
             margin: .9em 0 0;
             height: .9em;
@@ -145,7 +151,7 @@
             line-height: .9em;
             color: var(--medium-grey)
         }
-        
+
         #sge-results {
             display: flex;
             flex-wrap: wrap;
@@ -155,19 +161,19 @@
             padding: .5em 0;
             max-width: 900px
         }
-        
+
         @media screen and (max-width:950px) {
             #sge-results {
                 padding: .5em 2em
             }
         }
-        
+
         @media screen and (max-width:568px) {
             #sge-results {
                 padding: .5em 0
             }
         }
-        
+
         .sge-results-item {
             flex-basis: calc(33% - (2*.5em));
             list-style: none;
@@ -179,35 +185,35 @@
             box-shadow: 0 0 1px rgba(0, 0, 0, .06), 0 2px 6px rgba(0, 0, 0, .03);
             transition: box-shadow .3s ease
         }
-        
+
         @media screen and (max-width:950px) {
             .sge-results-item {
                 flex-basis: calc(50% - (2*.5em) - 2px)
             }
         }
-        
+
         @media screen and (max-width:568px) {
             .sge-results-item {
                 flex-basis: 100%;
                 margin: .5em 1em
             }
         }
-        
+
         .sge-results-item:hover {
             box-shadow: 0 0 1px rgba(0, 0, 0, .12), 1px 2px 7px rgba(0, 0, 0, .08)
         }
-        
+
         .sge-results-item:hover img {
             filter: brightness(110%)
         }
-        
+
         .sge-results-item>a {
             display: block;
             height: 100%;
             text-decoration: none;
             border-radius: 4px
         }
-        
+
         .sge-results-item img {
             width: 100%;
             height: 10em;
@@ -215,51 +221,73 @@
             filter: brightness(1);
             transition: filter .3s ease
         }
-        
+
         .sge-results-item section {
             padding: .8em .8em .7em
         }
-        
+
         .sge-results-item header {
             font-size: .65em;
             color: var(--grey);
             text-transform: uppercase
         }
-        
+
         .sge-results-item .head-tags {
             border: 1px solid var(--grey);
             border-radius: 3px;
             padding: 2.8px 4px 1px 5px
         }
-        
+
         .sge-results-item .head-date {
             margin-left: .5em
         }
-        
+
         .sge-results-item h2 {
             color: var(--heavy-grey);
             margin: .3em 0;
             font-size: 1.25em;
             font-weight: 300;
             line-height: 1.3em
-        }        
+        }
     </style>
+
+    <script>
+        var searchinghostOptions = {
+            limit: 12,
+            onSearchEnd: function (posts) {
+                var counter = posts.length;
+                var foundElement = document.getElementById('found-items-counter');
+                if (counter <= 1) {
+                    foundElement.textContent = `${counter} post found`;
+                } else {
+                    foundElement.textContent = `${counter} posts found`;
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
     <div class="searchinghost-easy-overlay" role="dialog">
-        <i id="sge-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z"/></svg></i>
+        <i id="sge-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                    d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z" />
+            </svg></i>
         <div class="searchbar-container">
             <section class="searchbar-wrapper">
                 <form class="form" autocomplete="off">
                     <input id="sge-input" type="text" placeholder="Search">
-                    <button type="submit" class="search-btn"><svg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z"/></svg></button>
+                    <button type="submit" class="search-btn"><svg focusable="false" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512">
+                            <path
+                                d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z" />
+                        </svg></button>
                 </form>
                 <p id="found-items-counter"></p>
             </section>
         </div>
         <ul id="sge-results"></ul>
     </div>
-
-    <script>var searchinghostOptions={debug: true,limit: 12,onSearchEnd: function(posts) {var counter = posts.length;var foundElement = document.getElementById('found-items-counter');if (counter <= 1) {foundElement.textContent = `${counter} post found`;} else {foundElement.textContent = `${counter} posts found`;}}}</script>
 </body>
+
+</html>

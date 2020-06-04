@@ -22,7 +22,7 @@ export default class SearchinGhostEasy {
         this.iframeElement.setAttribute('id', 'searchinghost-easy');
         this.iframeElement.setAttribute('width', '100%');
         this.iframeElement.setAttribute('height', '100%');
-        this.iframeElement.style = `visibility:hidden;border:none;position:fixed;z-index:10000;top:0;left:0;`;
+        this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:10000;top:0;left:0;';
         document.body.appendChild(this.iframeElement);
 
         this.iframeWindow = this.iframeElement.contentWindow;
@@ -34,23 +34,22 @@ export default class SearchinGhostEasy {
     }
 
     initSearchEngine() {
-        let searchinghostOptions = {
+        const searchinghostOptions = {
             key: this.contentKey,
             url: this.apiUrl,
             inputId: 'sge-input',
             outputId: 'sge-results',
-            outputChildsType: 'li'
+            outputChildsType: 'li',
+            loadOn: 'page'
         }
 
         const themeOptions = this.iframeWindow.searchinghostOptions;
         if (themeOptions) {
-            // console.log("themeOptions:", themeOptions);
-            searchinghostOptions = this.mergeConfigs(searchinghostOptions, themeOptions);
+            this.mergeConfigs(searchinghostOptions, themeOptions);
         }
         
-        searchinghostOptions = this.mergeConfigs(searchinghostOptions, this.searchEngineOptions);
-        const serializedOptions = this.serializeConfiguration(searchinghostOptions);
-        // console.log("serializedOptions:", serializedOptions);
+        this.mergeConfigs(searchinghostOptions, this.searchEngineOptions);
+        
 
         // add SearchinGhost library
         const searchLibrary = document.createElement("script");
@@ -60,6 +59,7 @@ export default class SearchinGhostEasy {
 
         // init the search engine
         const initScript = document.createElement("script");
+        const serializedOptions = this.serializeConfiguration(searchinghostOptions);
         initScript.textContent = `new SearchinGhost(${serializedOptions});`;
         const _this = this;
         searchLibrary.onload = function() {
@@ -115,11 +115,9 @@ export default class SearchinGhostEasy {
      * @param {Document} b the document to merge
      */
     mergeConfigs(a, b) {
-        const result = Object.assign({}, a);
         for (let [key, value] of Object.entries(b)) {
-            result[key] = value;
+            a[key] = value;
         }
-        return result;
     }
 
     /**

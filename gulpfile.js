@@ -3,7 +3,7 @@ const { src, dest, series, watch } = require('gulp');
 const flatmap = require('gulp-flatmap');
 const del = require('delete');
 const rename = require("gulp-rename");
-const htmlmin = require('gulp-htmlmin');
+const htmlmin = require('gulp-html-minifier-terser');
 const webpack = require('webpack-stream');
 const header = require('gulp-header');
 const replace = require('gulp-replace');
@@ -21,7 +21,7 @@ function clean(cb) {
  * the getHtmlTemplate() function. That's why we need 'flatmap'.
  */
 function generate(cb) {
-    return src('themes/**/*.html')
+    return src('src/themes/*.html')
         .pipe(htmlmin({
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
@@ -31,8 +31,8 @@ function generate(cb) {
             minifyJS: true
         }))
         .pipe(flatmap(function(stream, file){
-            let name = file.path.split(/[\\/]/).pop().split('.').shift();
-            let htmlContent = file.contents.toString().replace(/"/g, '\\"');
+            const name = file.path.split(/[\\/]/).pop().split('.').shift();
+            const htmlContent = file.contents.toString().replace(/"/g, '\\"');
             return src('src/searchinghost-easy.js')
                 .pipe(webpack({
                     mode: 'production',
@@ -59,7 +59,7 @@ function build() {
 
 function watchFiles() {
     isProduction = false;
-    watch(['themes/**/*.html', 'src/*.js'], { ignoreInitial: false }, generate);
+    watch(['src/*.js', 'src/themes/*.html'], { ignoreInitial: false }, generate);
 }
 
 exports.default = build();
