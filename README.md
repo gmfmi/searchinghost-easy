@@ -1,3 +1,8 @@
+[![](https://flat.badgen.net/github/release/gmfmi/searchinghost-easy)](https://github.com/gmfmi/searchinghost-easy/releases)
+[![](https://data.jsdelivr.com/v1/package/gh/gmfmi/searchinghost-easy/badge)](https://www.jsdelivr.com/package/gh/gmfmi/searchinghost-easy)
+[![](https://flat.badgen.net/github/license/gmfmi/searchinghost-easy)](https://github.com/gmfmi/searchinghost-easy/blob/master/LICENSE)
+
+
 # SearchinGhost Easy
 
 Beautiful search bars made accessible to any Ghost CMS user
