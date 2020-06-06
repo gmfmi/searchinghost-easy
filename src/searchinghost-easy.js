@@ -1,5 +1,5 @@
 const DEFAULT_SEARCHINGHOST_VERSION = '1.3.3';
-const SEARCHINGHOST_URL_TEMPLATE = `https://cdn.jsdelivr.net/npm/searchinghost@{{version}}/dist/searchinghost.min.js`
+const SEARCHINGHOST_URL_TEMPLATE = `https://cdn.jsdelivr.net/npm/searchinghost@{{version}}/dist/searchinghost.min.js`;
 
 export default class SearchinGhostEasy {
 
@@ -15,6 +15,9 @@ export default class SearchinGhostEasy {
         this.apiUrl = args.apiUrl || window.location.origin;
         this.searchEngineOptions = args.searchEngineOptions || {};
         this.version = args.version || DEFAULT_SEARCHINGHOST_VERSION;
+        this.debug = args.debug || false;
+
+        this.isOpen = false;
     }
 
     createIframeElement() {
@@ -31,6 +34,15 @@ export default class SearchinGhostEasy {
         this.iframeDocument.open();
         this.iframeDocument.write(this.getHtmlTemplate());
         this.iframeDocument.close();
+        
+        // Get variables from the theme itself
+        this.themeOptions = this.iframeWindow.searchinghostOptions;
+        this.themeCloseDelay = this.iframeWindow.closeDelay;
+
+        // Get theme elements
+        this.themeCloseButton = this.iframeDocument.getElementById('sge-close');
+        this.themeContainer = this.iframeDocument.getElementById("sge-container");
+        this.themeInput = this.iframeDocument.getElementById('sge-input');
     }
 
     initSearchEngine() {
@@ -43,14 +55,18 @@ export default class SearchinGhostEasy {
             loadOn: 'page'
         }
 
-        const themeOptions = this.iframeWindow.searchinghostOptions;
-        if (themeOptions) {
-            this.mergeConfigs(searchinghostOptions, themeOptions);
+        if (this.themeOptions) {
+            this.mergeConfigs(searchinghostOptions, this.themeOptions);
         }
         
         this.mergeConfigs(searchinghostOptions, this.searchEngineOptions);
-        
 
+        if (this.debug) {
+            searchinghostOptions.debug = true;
+            searchinghostOptions.cacheMaxAge = 0;
+            console.info("[debug] SearchinGhost configuration:", searchinghostOptions);
+        }
+        
         // add SearchinGhost library
         const searchLibrary = document.createElement("script");
         const searchinGhostUrl = SEARCHINGHOST_URL_TEMPLATE.replace('{{version}}', this.version)
@@ -61,9 +77,8 @@ export default class SearchinGhostEasy {
         const initScript = document.createElement("script");
         const serializedOptions = this.serializeConfiguration(searchinghostOptions);
         initScript.textContent = `new SearchinGhost(${serializedOptions});`;
-        const _this = this;
-        searchLibrary.onload = function() {
-            _this.iframeDocument.body.appendChild(initScript);
+        searchLibrary.onload = () => {
+            this.iframeDocument.body.appendChild(initScript);
         }
     }
 
@@ -72,22 +87,22 @@ export default class SearchinGhostEasy {
         openAnchors.forEach((link) => {
             link.addEventListener('click', (ev) => {
                 ev.preventDefault();
+                this.clickedAnchor = link;
                 this.openOverlay();
             });
         });
 
-        const _this = this;
+        const self = this;
         function closeOnEscape(ev) {
             if (ev.key === "Escape" || ev.keyCode === 27) {
-                _this.closeOverlay();
+                self.closeOverlay();
             }
         }
         document.addEventListener('keyup', closeOnEscape);
         this.iframeDocument.addEventListener('keyup', closeOnEscape);
 
-        const closeButton = this.iframeDocument.getElementById('sge-close');
-        if (closeButton) {
-            closeButton.addEventListener('click', (ev) => {
+        if (this.themeCloseButton) {
+            this.themeCloseButton.addEventListener('click', (ev) => {
                 ev.preventDefault();
                 this.closeOverlay();
             });
@@ -97,12 +112,22 @@ export default class SearchinGhostEasy {
     openOverlay() {
         this.iframeElement.style.visibility = "visible";
         document.documentElement.style.overflow = 'hidden';
-        this.iframeDocument.getElementById('sge-input').focus();
+        this.themeContainer.classList.add("is-active");
+        this.themeInput.focus();
+        this.isOpen = true;
     }
 
     closeOverlay() {
-        this.iframeElement.style.visibility = "hidden";
-        document.documentElement.style.overflow = 'auto';
+        if (this.isOpen) {
+            this.themeContainer.classList.remove("is-active");
+            setTimeout(() => {
+                this.iframeElement.style.visibility = "hidden";
+                document.documentElement.style.overflow = 'auto';
+                this.clickedAnchor.focus({preventScroll:true});
+                this.clickedAnchor = undefined;
+                this.isOpen = false;
+            }, this.themeCloseDelay || 0);
+        }
     }
 
     getHtmlTemplate() {

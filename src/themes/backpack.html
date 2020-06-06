@@ -13,10 +13,16 @@
             --heavy-grey: #3f3f3f;
             --background-alt: #fff;
             --background-main: #fafafa;
-            --borders: #f0f0f0
+            --borders: #f0f0f0;
         }
 
-        .searchinghost-easy-overlay {
+        #sge-container.is-active {
+            opacity: 1;
+        }
+
+        #sge-container {
+            opacity: 0;
+            transition: opacity 0.3s ease;
             display: block;
             position: absolute;
             top: 0;
@@ -29,11 +35,11 @@
             background-color: var(--background-main);
             font-family: "Arial", "sans-serif";
             text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased
+            -webkit-font-smoothing: antialiased;
         }
 
         #sge-close {
-            z-index: 100;
+            z-index: 1;
             position: absolute;
             top: 1em;
             right: 1.5em;
@@ -42,12 +48,12 @@
             padding: .5em;
             cursor: pointer;
             fill: var(--light-grey);
-            transition: all .3s ease
+            transition: all .3s ease;
         }
 
         #sge-close:hover,
         .search-btn:hover {
-            fill: var(--medium-grey)
+            fill: var(--medium-grey);
         }
 
         @media screen and (max-width:950px) {
@@ -55,7 +61,7 @@
                 width: 1.2em;
                 height: 1.2em;
                 top: 5px;
-                right: 6px
+                right: 6px;
             }
         }
 
@@ -64,7 +70,7 @@
                 width: 1em;
                 height: 1em;
                 top: 5px;
-                right: 6px
+                right: 6px;
             }
         }
 
@@ -73,18 +79,18 @@
             width: 100%;
             border-bottom: 1px solid var(--borders);
             background-color: var(--background-alt);
-            overflow: hidden
+            overflow: hidden;
         }
 
         .searchbar-wrapper {
             max-width: 700px;
             margin: 1.5em auto;
-            padding: 0 1em
+            padding: 0 1em;
         }
 
         @media screen and (max-width:950px) {
             .searchbar-wrapper {
-                margin: 2.5em auto 1.5em
+                margin: 2.5em auto 1.5em;
             }
         }
 
@@ -92,7 +98,7 @@
             display: flex;
             justify-content: flex-end;
             align-items: stretch;
-            border-bottom: 1px solid var(--light-grey)
+            border-bottom: 1px solid var(--light-grey);
         }
 
         #sge-input {
@@ -104,29 +110,29 @@
             line-height: 1.5em;
             color: var(--heavy-grey);
             font-weight: 200;
-            background-color: transparent
+            background-color: transparent;
         }
 
         #sge-input:focus {
-            outline: 0
+            outline: 0;
         }
 
         #sge-input::placeholder {
             color: var(--light-grey);
             opacity: 1;
-            font-weight: 200
+            font-weight: 200;
         }
 
         #sge-input::-webkit-input-placeholder {
             color: var(--light-grey);
             opacity: 1;
-            font-weight: 200
+            font-weight: 200;
         }
 
         #sge-input::-moz-placeholder {
             color: var(--light-grey);
             opacity: 1;
-            font-weight: 200
+            font-weight: 200;
         }
 
         .search-btn {
@@ -140,7 +146,7 @@
             background-color: transparent;
             cursor: pointer;
             fill: var(--light-grey);
-            transition: all .3s ease
+            transition: all .3s ease;
         }
 
         #found-items-counter {
@@ -149,7 +155,7 @@
             font-size: .9em;
             font-weight: 300;
             line-height: .9em;
-            color: var(--medium-grey)
+            color: var(--medium-grey);
         }
 
         #sge-results {
@@ -159,23 +165,23 @@
             align-items: stretch;
             margin: 0 auto;
             padding: .5em 0;
-            max-width: 900px
+            max-width: 900px;
         }
 
         @media screen and (max-width:950px) {
             #sge-results {
-                padding: .5em 2em
+                padding: .5em 2em;
             }
         }
 
         @media screen and (max-width:568px) {
             #sge-results {
-                padding: .5em 0
+                padding: .5em 0;
             }
         }
 
         .sge-results-item {
-            flex-basis: calc(33% - (2*.5em));
+            flex-basis: calc(33% - (2 * .5em) + 1px);
             list-style: none;
             overflow: hidden;
             padding: 0;
@@ -183,35 +189,40 @@
             border-radius: 5px;
             background-color: var(--background-alt);
             box-shadow: 0 0 1px rgba(0, 0, 0, .06), 0 2px 6px rgba(0, 0, 0, .03);
-            transition: box-shadow .3s ease
+            transition: box-shadow .3s ease;
         }
 
         @media screen and (max-width:950px) {
             .sge-results-item {
-                flex-basis: calc(50% - (2*.5em) - 2px)
+                flex-basis: calc(50% - (2 * .5em) - 2px);
             }
         }
 
         @media screen and (max-width:568px) {
             .sge-results-item {
                 flex-basis: 100%;
-                margin: .5em 1em
+                margin: .5em 1em;
             }
         }
 
+        .sge-results-item:focus-within {
+            outline: auto; /* keyboard accessibility */
+            box-shadow: 0 0 5px rgba(0, 0, 0, .2), 1px 2px 7px rgba(0, 0, 0, .1);
+        }
+
         .sge-results-item:hover {
-            box-shadow: 0 0 1px rgba(0, 0, 0, .12), 1px 2px 7px rgba(0, 0, 0, .08)
+            box-shadow: 0 0 1px rgba(0, 0, 0, .2), 1px 2px 7px rgba(0, 0, 0, .1);
         }
 
         .sge-results-item:hover img {
-            filter: brightness(110%)
+            filter: brightness(110%);
         }
 
-        .sge-results-item>a {
+        .sge-results-item > a {
             display: block;
             height: 100%;
             text-decoration: none;
-            border-radius: 4px
+            border-radius: 4px;
         }
 
         .sge-results-item img {
@@ -219,27 +230,27 @@
             height: 10em;
             object-fit: cover;
             filter: brightness(1);
-            transition: filter .3s ease
+            transition: filter .3s ease;
         }
 
         .sge-results-item section {
-            padding: .8em .8em .7em
+            padding: .8em .8em .7em;
         }
 
         .sge-results-item header {
             font-size: .65em;
             color: var(--grey);
-            text-transform: uppercase
+            text-transform: uppercase;
         }
 
         .sge-results-item .head-tags {
             border: 1px solid var(--grey);
             border-radius: 3px;
-            padding: 2.8px 4px 1px 5px
+            padding: 2.8px 4px 1px 5px;
         }
 
         .sge-results-item .head-date {
-            margin-left: .5em
+            margin-left: .5em;
         }
 
         .sge-results-item h2 {
@@ -247,11 +258,12 @@
             margin: .3em 0;
             font-size: 1.25em;
             font-weight: 300;
-            line-height: 1.3em
+            line-height: 1.3em;
         }
     </style>
 
     <script>
+        var closeDelay = 300;
         var searchinghostOptions = {
             limit: 12,
             onSearchEnd: function (posts) {
@@ -268,16 +280,12 @@
 </head>
 
 <body>
-    <div class="searchinghost-easy-overlay" role="dialog">
-        <i id="sge-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                    d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z" />
-            </svg></i>
+    <section id="sge-container">
         <div class="searchbar-container">
             <section class="searchbar-wrapper">
                 <form class="form" autocomplete="off">
                     <input id="sge-input" type="text" placeholder="Search">
-                    <button type="submit" class="search-btn"><svg focusable="false" xmlns="http://www.w3.org/2000/svg"
+                    <button type="submit" class="search-btn"><svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 512 512">
                             <path
                                 d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z" />
@@ -286,8 +294,14 @@
                 <p id="found-items-counter"></p>
             </section>
         </div>
+        <i id="sge-close" tabindex=0>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                    d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z" />
+            </svg>
+        </i>
         <ul id="sge-results"></ul>
-    </div>
+    </section>
 </body>
 
 </html>
