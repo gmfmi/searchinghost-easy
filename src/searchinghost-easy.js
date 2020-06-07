@@ -27,13 +27,18 @@ export default class SearchinGhostEasy {
         this.iframeElement.setAttribute('height', '100%');
         this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:10000;top:0;left:0;';
         document.body.appendChild(this.iframeElement);
-
+        
         this.iframeWindow = this.iframeElement.contentWindow;
-
+        
         this.iframeDocument = this.iframeWindow.document;
         this.iframeDocument.open();
         this.iframeDocument.write(this.getHtmlTemplate());
         this.iframeDocument.close();
+
+        // Open any iframe link from its parent space
+        const base = document.createElement("base");
+        base.setAttribute('target', '_parent');
+        this.iframeDocument.head.appendChild(base);
         
         // Get variables from the theme itself
         this.themeOptions = this.iframeWindow.searchinghostOptions;
@@ -119,11 +124,11 @@ export default class SearchinGhostEasy {
 
     closeOverlay() {
         if (this.isOpen) {
+            this.clickedAnchor.focus({preventScroll:true});
             this.themeContainer.classList.remove("is-active");
             setTimeout(() => {
                 this.iframeElement.style.visibility = "hidden";
                 document.documentElement.style.overflow = 'auto';
-                this.clickedAnchor.focus({preventScroll:true});
                 this.clickedAnchor = undefined;
                 this.isOpen = false;
             }, this.themeCloseDelay || 0);

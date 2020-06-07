@@ -10,7 +10,7 @@ Beautiful search bars made accessible to any Ghost CMS user
 ## Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.1/dist/searchinghost-easy-basic.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.2/dist/searchinghost-easy-basic.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -31,7 +31,7 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/basic/
 #### Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.1/dist/searchinghost-easy-basic.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.2/dist/searchinghost-easy-basic.js"></script>
 ```
 
 
@@ -49,5 +49,5 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/backpack/
 #### Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.1/dist/searchinghost-easy-backpack.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.2/dist/searchinghost-easy-backpack.js"></script>
 ```

@@ -4,9 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <style>
+        :root {
+            --light-grey: rgb(246, 249, 254);
+            --blue-grey: rgb(110, 124, 141);
+            --blue-grey-numbers: rgb(130, 146, 168);
+            --blue-grey-borders: rgba(94, 109, 127, 0.06);
+            --blue-grey-borders-over: rgba(94, 109, 127, 0.22);
+        }
+
+        #sge-container.is-active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
         #sge-container {
+            opacity: 0;
+            transform: scale(.95);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+
             display: block;
             position: absolute;
             top: 0;
@@ -17,18 +34,182 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             background-color: #fff;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            font-family: sans-serif;
+        }
+
+        .wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 3em 0.7em 2em 0.7em;
+        }
+
+        @media screen and (max-width:850px) {
+            .wrapper {
+                padding-top: 4.5em;
+            }
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-color: var(--light-grey);
+            box-sizing: border-box;
+            border: solid 1px var(--blue-grey-borders);
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+        }
+
+        form:focus-within {
+            border-color: var(--blue-grey-borders-over);
+        }
+
+        .search-icon {
+            flex-grow: 0;
+            padding: 0 10px;
+        }
+
+        .search-icon>svg {
+            height: 1.55em;
+            margin: 0.3em 0.2em 0 0.5em;
+            fill: var(--blue-grey);
+        }
+
+        #sge-input {
+            flex-grow: 1;
+            margin: 0;
+            padding: 0 0.5em 0 0;
+            border: solid 1px transparent;
+            background-color: transparent;
+            font-size: 1.8em;
+            font-weight: 200;
+            line-height: 2em;
+            outline: none;
+        }
+
+        #sge-input::placeholder {
+            color: var(--blue-grey);
+            opacity: 1;
         }
 
         #sge-close {
             display: block;
-            width: 20px;
+            position: absolute;
+            width: 1.4em;
+            height: 1.4em;
+            top: 1.1em;
+            right: 1.4em;
+            margin: 0;
+            padding: 1em;
+            border-radius: 50%;
+            border: solid 1px transparent;
+            background-color: var(--light-grey);
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        @media screen and (max-width:850px) {
+            #sge-close {
+                top: 0.5em;
+                right: 0.7em;
+            }
+        }
+
+        #sge-close:hover {
+            cursor: pointer;
+            border-color: var(--blue-grey-borders-over);
+        }
+
+        #sge-close:before,
+        #sge-close:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 50%;
+            height: 1.6px;
+            background-color: var(--blue-grey);
+            border-radius: 2px;
+        }
+
+        #sge-close:before {
+            transform: rotate(45deg);
+        }
+
+        #sge-close:after {
+            transform: rotate(-45deg);
+        }
+
+        #sge-results {
+            padding: 0;
+            margin: 0;
+            counter-reset: incr;
+        }
+
+        .sge-results-item {
+            display: block;
+            list-style: none;
+            margin-top: 1em;
+            background-color: var(--light-grey);
+            border-radius: 4px;
+        }
+
+        .sge-results-item a {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            counter-increment: incr;
+            text-decoration: none;
+            color: #000;
+            padding: 0.9em 1em;
+        }
+
+        .sge-results-item a:before {
+            grid-row-start: 1;
+            grid-row-end: 3;
+            grid-column: 1;
+            align-self: center;
+            content: counter(incr) ".";
+            display: block;
+            margin: 0.2em 0.3em 0 0.2em;
+            font-size: 2em;
+            line-height: 1em;
+            font-weight: 100;
+            color: var(--blue-grey-numbers);
+        }
+
+        .sge-results-item time {
+            grid-column: 2;
+            grid-row: 1;
+            align-self: end;
+            margin-top: 0.5em;
+            font-size: 0.8em;
+            font-weight: 200;
+            color: var(--blue-grey);
+        }
+
+        .sge-results-item h2 {
+            grid-column: 2;
+            grid-row: 2;
+            margin: 0.2em 0 0 0;
+            font-size: 1.2em;
+            font-weight: 500;
+            line-height: 1.3em;
+            text-transform: capitalize;
         }
     </style>
 
     <script>
+        var closeDelay = 300;
         var searchinghostOptions = {
             template: function (post) {
-                return `<a href="${post.url}">${post.title}</a>`
+                return `<a href="${post.url}"><time>${post.published_at}</time><h2>${post.title}</h2></a>`
+            },
+            date: {
+                locale: "en-US",
+                options: { year: 'numeric', month: 'long', day: 'numeric' }
             }
         }
     </script>
@@ -36,15 +217,19 @@
 
 <body>
     <section id="sge-container">
-        <form autocomplete="off">
-            <input id="sge-input" type="text" placeholder="search">
-        </form>
-        <i id="sge-close" tabindex=0>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path
-                    d="M284.286,256.002L506.143,34.144c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L256,227.717 L34.143,5.859c-7.811-7.811-20.475-7.811-28.285,0c-7.81,7.811-7.811,20.475,0,28.285l221.857,221.857L5.858,477.859 c-7.811,7.811-7.811,20.475,0,28.285c3.905,3.905,9.024,5.857,14.143,5.857c5.119,0,10.237-1.952,14.143-5.857L256,284.287 l221.857,221.857c3.905,3.905,9.024,5.857,14.143,5.857s10.237-1.952,14.143-5.857c7.811-7.811,7.811-20.475,0-28.285 L284.286,256.002z" />
-            </svg>
-        </i>
-        <ol id="sge-results"></ol>
+        <div class="wrapper">
+            <form autocomplete="off">
+                <i class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path
+                            d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z" />
+                    </svg>
+                </i>
+                <input id="sge-input" type="text" placeholder="Search">
+            </form>
+            <i id="sge-close"></i>
+            <ol id="sge-results"></ol>
+        </div>
     </section>
 </body>
 
