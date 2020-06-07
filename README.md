@@ -23,6 +23,10 @@ Beautiful search bars made accessible to any Ghost CMS user
 
 ### Basic
 
+#### Screenshot
+
+![Basic theme screenshot](screenshots/basic.png)
+
 #### Demo
 
 Live demo: https://gmfmi.github.io/searchinghost-easy/basic/
@@ -39,7 +43,7 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/basic/
 
 #### Screenshot
 
-![screenshot](screenshots/backpack.png)
+![Backpack theme screenshot](screenshots/backpack.png)
 
 #### Demo
 
