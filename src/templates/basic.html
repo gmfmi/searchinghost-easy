@@ -207,6 +207,10 @@
     <script>
         var closeDelay = 300;
         var searchinghostOptions = {
+            postsFields: ['title', 'url', 'published_at'],
+            postsExtraFields: [],
+            postsFormats: [],
+            indexedFields: ['title'],
             template: function (post) {
                 return `<a href="${post.url}"><time>${post.published_at}</time><h2>${post.title}</h2></a>`
             },

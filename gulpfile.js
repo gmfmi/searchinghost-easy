@@ -23,7 +23,7 @@ function clean(cb) {
  * the getHtmlTemplate() function. That's why we need 'flatmap'.
  */
 function generate(cb) {
-    return src('src/themes/*.html')
+    return src('src/templates/*.html')
         .pipe(htmlmin({
             collapseWhitespace: true,
             collapseInlineTagWhitespace: true,
@@ -74,7 +74,7 @@ function watchFiles() {
         }
     });
 
-    watch(['src/*.js', 'src/themes/*.html'], { ignoreInitial: false }, series(generate, reload));
+    watch(['src/*.js', 'src/templates/*.html'], { ignoreInitial: false }, series(generate, reload));
 }
 
 exports.default = build();

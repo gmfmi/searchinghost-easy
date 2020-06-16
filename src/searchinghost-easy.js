@@ -13,8 +13,8 @@ export default class SearchinGhostEasy {
     parseArgs(args) {
         this.contentKey = args.contentApiKey;
         this.apiUrl = args.apiUrl || window.location.origin;
-        this.searchEngineOptions = args.searchEngineOptions || {};
-        this.version = args.version || DEFAULT_SEARCHINGHOST_VERSION;
+        this.searchinghostOptions = args.searchinghostOptions || {};
+        this.searchinghostVersion = args.searchinghostVersion || DEFAULT_SEARCHINGHOST_VERSION;
         this.debug = args.debug || false;
 
         this.isOpen = false;
@@ -25,6 +25,7 @@ export default class SearchinGhostEasy {
         this.iframeElement.setAttribute('id', 'searchinghost-easy');
         this.iframeElement.setAttribute('width', '100%');
         this.iframeElement.setAttribute('height', '100%');
+        // we use 'visibility' instead of 'display' to get a better CSS transition support
         this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:10000;top:0;left:0;';
         document.body.appendChild(this.iframeElement);
         
@@ -56,15 +57,14 @@ export default class SearchinGhostEasy {
             url: this.apiUrl,
             inputId: 'sge-input',
             outputId: 'sge-results',
-            outputChildsType: 'li',
-            loadOn: 'page'
+            outputChildsType: 'li'
         }
 
         if (this.themeOptions) {
             this.mergeConfigs(searchinghostOptions, this.themeOptions);
         }
         
-        this.mergeConfigs(searchinghostOptions, this.searchEngineOptions);
+        this.mergeConfigs(searchinghostOptions, this.searchinghostOptions);
 
         if (this.debug) {
             searchinghostOptions.debug = true;
@@ -74,7 +74,7 @@ export default class SearchinGhostEasy {
         
         // add SearchinGhost library
         const searchLibrary = document.createElement("script");
-        const searchinGhostUrl = SEARCHINGHOST_URL_TEMPLATE.replace('{{version}}', this.version)
+        const searchinGhostUrl = SEARCHINGHOST_URL_TEMPLATE.replace('{{version}}', this.searchinghostVersion)
         searchLibrary.setAttribute('src', searchinGhostUrl);
         this.iframeDocument.body.appendChild(searchLibrary);
 
@@ -82,9 +82,7 @@ export default class SearchinGhostEasy {
         const initScript = document.createElement("script");
         const serializedOptions = this.serializeConfiguration(searchinghostOptions);
         initScript.textContent = `new SearchinGhost(${serializedOptions});`;
-        searchLibrary.onload = () => {
-            this.iframeDocument.body.appendChild(initScript);
-        }
+        searchLibrary.onload = () => this.iframeDocument.body.appendChild(initScript);
     }
 
     addListeners() {
@@ -172,7 +170,11 @@ export default class SearchinGhostEasy {
                     c += `${key}:${value},`;
                     break;
                 case "object":
-                    c += `${key}:${this.serializeConfiguration(value)},`;
+                    if (Array.isArray(value)) {
+                        c += `${key}:${JSON.stringify(value)},`;
+                    } else {
+                        c += `${key}:${this.serializeConfiguration(value)},`;
+                    }
                     break;
                 case "undefined":
                 default:
@@ -182,6 +184,7 @@ export default class SearchinGhostEasy {
         }
         c = c.slice(0, -1); // remove the last ","
         c += "}"
+        if (this.debug) console.info("[debug] serialized configuration:", c);
         return c;
     }
 }
