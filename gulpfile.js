@@ -8,6 +8,8 @@ const webpack = require('webpack-stream');
 const header = require('gulp-header');
 const replace = require('gulp-replace');
 
+const browserSync = require('browser-sync').create();
+
 let isProduction = true;
 
 function clean(cb) {
@@ -57,9 +59,22 @@ function build() {
     return series(clean, generate);
 }
 
+function reload(cb) {
+    browserSync.reload();
+    cb();
+  }
+
 function watchFiles() {
     isProduction = false;
-    watch(['src/*.js', 'src/themes/*.html'], { ignoreInitial: false }, generate);
+
+    browserSync.init({
+        open: false,
+        server: {
+            baseDir: "./"
+        }
+    });
+
+    watch(['src/*.js', 'src/themes/*.html'], { ignoreInitial: false }, series(generate, reload));
 }
 
 exports.default = build();

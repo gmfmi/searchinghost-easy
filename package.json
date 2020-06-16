@@ -30,6 +30,7 @@
     "dist/"
   ],
   "devDependencies": {
+    "browser-sync": "^2.26.7",
     "delete": "^1.1.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
