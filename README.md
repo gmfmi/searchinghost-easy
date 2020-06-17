@@ -13,11 +13,11 @@ A Zero code & easy to setup search bar for Ghost CMS (blog).
 SearchinGhostEasy is a wrapper around the original [SearchinGhost library](https://github.com/gmfmi/searchinGhost)
 to make it accessible to any "non-developper" Ghost user.
 
-Because we are not all born with design skills, we created various [search bar templates](#templates)
-so you do not have worry about it. They all use a responsive design so they fit perfectly on
+Because we are not all born with design skills, several [search bar templates](#templates)
+have already been made for you. They all use a responsive design so they fit perfectly on
 any screen size, from mobile phones to 4K TVs.
 
-Finally, we put everything together in an HTML iframe to get a super smooth user experience!
+Finally, by putting everything together in an HTML iframe, we get a super rich and smooth user experience!
 
 
 ## Installation
@@ -32,7 +32,7 @@ If you need more help, visit the official [Ghost custom integration](https://gho
 *note: various search box templates are available, see the [templates section](#templates) below.*
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.2/dist/searchinghost-easy-basic.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@1.0.0/dist/searchinghost-easy-basic.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -59,6 +59,9 @@ To do so, refer to each template description and copy/paste the associated code 
 `Code Injection > Site Footer` section. Basically, only the last part of the script name changes
 (e.g. "searchinghost-easy-basic.js", "searchinghost-easy-backpack.js", ...).
 
+Hopefully, more search bar templates are coming! If you would like to share one of your design
+by contributing to this project, please feel free to contact me or to create an issue/PR.
+
 ---
 
 ### ✏️ Basic template
@@ -75,7 +78,7 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/basic/
 #### Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.2/dist/searchinghost-easy-basic.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@1.0.0/dist/searchinghost-easy-basic.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -99,7 +102,7 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/backpack/
 #### Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@0.1.2/dist/searchinghost-easy-backpack.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@1.0.0/dist/searchinghost-easy-backpack.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -119,6 +122,7 @@ new SearchinGhostEasy({
     apiUrl: 'http://example.com',
     searchinghostOptions: {},
     searchinghostVersion: '1.3.3',
+    zIndex: 200,
     debug: false
 });
 ```
@@ -153,6 +157,11 @@ new SearchinGhostEasy({
 > Set the SearchinGhost version to use. Can be useful if a newer version has just been released.
 >
 > example: `'1.3.0'`
+
+- **zIndex** (number)
+> Set the HTML iframe element `z-index` to a specific value.
+>
+> default: `2147483647`
 
 - **debug** (boolean)
 > Set it to `true` to enable the debug mode. This will output the final SearchinGhost configuration used

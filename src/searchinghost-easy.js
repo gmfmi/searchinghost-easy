@@ -4,6 +4,8 @@ const SEARCHINGHOST_URL_TEMPLATE = `https://cdn.jsdelivr.net/npm/searchinghost@{
 export default class SearchinGhostEasy {
 
     constructor(args) {
+        this.isOpen = false;
+
         this.parseArgs(args);
         this.createIframeElement();
         this.initSearchEngine();
@@ -15,9 +17,8 @@ export default class SearchinGhostEasy {
         this.apiUrl = args.apiUrl || window.location.origin;
         this.searchinghostOptions = args.searchinghostOptions || {};
         this.searchinghostVersion = args.searchinghostVersion || DEFAULT_SEARCHINGHOST_VERSION;
+        this.zIndex = args.zIndex || 2147483647; // max int-32 value, used by most browsers
         this.debug = args.debug || false;
-
-        this.isOpen = false;
     }
 
     createIframeElement() {
@@ -26,7 +27,7 @@ export default class SearchinGhostEasy {
         this.iframeElement.setAttribute('width', '100%');
         this.iframeElement.setAttribute('height', '100%');
         // we use 'visibility' instead of 'display' to get a better CSS transition support
-        this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:10000;top:0;left:0;';
+        this.iframeElement.style = `visibility:hidden;border:none;position:fixed;z-index:${this.zIndex};top:0;left:0;`;
         document.body.appendChild(this.iframeElement);
         
         this.iframeWindow = this.iframeElement.contentWindow;
@@ -36,7 +37,7 @@ export default class SearchinGhostEasy {
         this.iframeDocument.write(this.getHtmlTemplate());
         this.iframeDocument.close();
 
-        // Open any iframe link from its parent space
+        // Open any iframe's link from its parent space
         const base = document.createElement("base");
         base.setAttribute('target', '_parent');
         this.iframeDocument.head.appendChild(base);
@@ -95,14 +96,11 @@ export default class SearchinGhostEasy {
             });
         });
 
-        const self = this;
-        function closeOnEscape(ev) {
+        this.iframeDocument.addEventListener('keyup', (ev) => {
             if (ev.key === "Escape" || ev.keyCode === 27) {
-                self.closeOverlay();
+                this.closeOverlay();
             }
-        }
-        document.addEventListener('keyup', closeOnEscape);
-        this.iframeDocument.addEventListener('keyup', closeOnEscape);
+        });
 
         if (this.themeCloseButton) {
             this.themeCloseButton.addEventListener('click', (ev) => {
