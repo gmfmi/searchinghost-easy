@@ -69,7 +69,6 @@ export default class SearchinGhostEasy {
 
         if (this.debug) {
             searchinghostOptions.debug = true;
-            searchinghostOptions.cacheMaxAge = 0;
             console.info("[debug] SearchinGhost configuration:", searchinghostOptions);
         }
         
@@ -170,13 +169,17 @@ export default class SearchinGhostEasy {
                 case "object":
                     if (Array.isArray(value)) {
                         c += `${key}:${JSON.stringify(value)},`;
+                    } else if (value instanceof RegExp) {
+                        c += `${key}:${value},`;
                     } else {
                         c += `${key}:${this.serializeConfiguration(value)},`;
                     }
                     break;
                 case "undefined":
-                default:
                     // do nothing
+                    break;
+                default:
+                    console.warn("Unable to properly serialize the searchinghost option '"+key+"' with value:", value);
                     break;
             }
         }
