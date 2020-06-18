@@ -1,6 +1,6 @@
 {
   "name": "searchinghost-easy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Zero code & easy to setup search bar for Ghost CMS (blog)",
   "main": "src/searchinghost-easy.js",
   "scripts": {

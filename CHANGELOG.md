@@ -6,10 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 
 ## [Unreleased]
+(empty)
+
+
+## [1.0.1] - 2020-06-18
+### Changed
+- Use the same underlying SearchinGhost posts indexation to easily switch between templates.
+
 ### Fixed
 - The `searchinghostOptions` configuration field can now handle regexp values.
 
 
 ## [1.0.0] - 2020-06-17
-
 🚀 The first official release!
