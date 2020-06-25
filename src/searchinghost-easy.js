@@ -27,7 +27,7 @@ export default class SearchinGhostEasy {
         this.iframeElement.setAttribute('width', '100%');
         this.iframeElement.setAttribute('height', '100%');
         // we use 'visibility' instead of 'display' to get a better CSS transition support
-        this.iframeElement.style = `visibility:hidden;border:none;position:fixed;z-index:${this.zIndex};top:0;left:0;`;
+        this.iframeElement.style = `visibility:hidden;border:none;position:fixed;z-index:-1;top:0;left:0;`;
         document.body.appendChild(this.iframeElement);
         
         this.iframeWindow = this.iframeElement.contentWindow;
@@ -110,6 +110,7 @@ export default class SearchinGhostEasy {
     }
 
     openOverlay() {
+        this.iframeElement.style["z-index"] = this.zIndex;
         this.iframeElement.style.visibility = "visible";
         document.documentElement.style.overflow = 'hidden';
         this.themeContainer.classList.add("is-active");
@@ -122,6 +123,7 @@ export default class SearchinGhostEasy {
             this.clickedAnchor.focus({preventScroll:true});
             this.themeContainer.classList.remove("is-active");
             setTimeout(() => {
+                this.iframeElement.style["z-index"] = -1;
                 this.iframeElement.style.visibility = "hidden";
                 document.documentElement.style.overflow = 'auto';
                 this.clickedAnchor = undefined;

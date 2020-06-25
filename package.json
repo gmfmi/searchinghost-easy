@@ -1,11 +1,12 @@
 {
   "name": "searchinghost-easy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Zero code & easy to setup search bar for Ghost CMS (blog)",
   "main": "src/searchinghost-easy.js",
   "scripts": {
     "build": "gulp build",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "serve": "gulp serve"
   },
   "repository": {
     "type": "git",

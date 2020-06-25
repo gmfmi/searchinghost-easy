@@ -62,11 +62,14 @@ function build() {
 function reload(cb) {
     browserSync.reload();
     cb();
-  }
+}
 
-function watchFiles() {
+function watchFiles(cb) {
     isProduction = false;
+    watch(['src/*.js', 'src/templates/*.html'], { ignoreInitial: false }, series(generate, reload));
+}
 
+function serve() {
     browserSync.init({
         open: false,
         server: {
@@ -74,9 +77,10 @@ function watchFiles() {
         }
     });
 
-    watch(['src/*.js', 'src/templates/*.html'], { ignoreInitial: false }, series(generate, reload));
+    watchFiles();
 }
 
 exports.default = build();
 exports.build = build();
 exports.watch = watchFiles;
+exports.serve = serve;
