@@ -24,10 +24,8 @@ export default class SearchinGhostEasy {
     createIframeElement() {
         this.iframeElement = document.createElement('iframe');
         this.iframeElement.setAttribute('id', 'searchinghost-easy');
-        this.iframeElement.setAttribute('width', '100%');
-        this.iframeElement.setAttribute('height', '100%');
         // we use 'visibility' instead of 'display' to get a better CSS transition support
-        this.iframeElement.style = `visibility:hidden;border:none;position:fixed;z-index:-1;top:0;left:0;`;
+        this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:-1;top:0;left:0;width:100vw;height:100vh;';
         document.body.appendChild(this.iframeElement);
         
         this.iframeWindow = this.iframeElement.contentWindow;
@@ -45,6 +43,7 @@ export default class SearchinGhostEasy {
         // Get variables from the theme itself
         this.themeOptions = this.iframeWindow.searchinghostOptions;
         this.themeCloseDelay = this.iframeWindow.closeDelay;
+        this.themeOpenDelay = this.iframeWindow.openDelay;
 
         // Get theme elements
         this.themeCloseButton = this.iframeDocument.getElementById('sge-close');
@@ -112,20 +111,24 @@ export default class SearchinGhostEasy {
     openOverlay() {
         this.iframeElement.style["z-index"] = this.zIndex;
         this.iframeElement.style.visibility = "visible";
-        document.documentElement.style.overflow = 'hidden';
         this.themeContainer.classList.add("is-active");
         this.themeInput.focus();
-        this.isOpen = true;
+
+        setTimeout(() => {
+            // prevent main page "jump" (scroll bar width when hidding)
+            document.documentElement.style.overflow = 'hidden';
+            this.isOpen = true;
+        }, this.themeOpenDelay || 0);    
     }
 
     closeOverlay() {
         if (this.isOpen) {
             this.clickedAnchor.focus({preventScroll:true});
+            document.documentElement.style.overflow = 'auto';
             this.themeContainer.classList.remove("is-active");
             setTimeout(() => {
                 this.iframeElement.style["z-index"] = -1;
                 this.iframeElement.style.visibility = "hidden";
-                document.documentElement.style.overflow = 'auto';
                 this.clickedAnchor = undefined;
                 this.isOpen = false;
             }, this.themeCloseDelay || 0);

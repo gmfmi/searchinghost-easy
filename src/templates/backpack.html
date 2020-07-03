@@ -30,7 +30,7 @@
             left: 0;
             right: 0;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
             background-color: var(--background-main);
             font-family: "Arial", "sans-serif";
@@ -260,16 +260,23 @@
     </style>
 
     <script>
+        var openDelay = 300;
         var closeDelay = 300;
         var searchinghostOptions = {
             limit: 12,
             onSearchEnd: function (posts) {
-                var counter = posts.length;
-                var foundElement = document.getElementById('found-items-counter');
-                if (counter <= 1) {
-                    foundElement.textContent = `${counter} post found`;
+                var inputQuery = document.getElementById('sge-input').value.toLowerCase();
+                var foundHtmlElement = document.getElementById('found-items-counter');
+                
+                if (inputQuery != "") {
+                    var postsFound = posts.length;
+                    if (postsFound <= 1) {
+                        foundHtmlElement.textContent = `${postsFound} post found`;
+                    } else {
+                        foundHtmlElement.textContent = `${postsFound} posts found`;
+                    }
                 } else {
-                    foundElement.textContent = `${counter} posts found`;
+                    foundHtmlElement.textContent = "";
                 }
             }
         }

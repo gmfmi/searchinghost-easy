@@ -36,7 +36,7 @@ If you need more help, visit the official [Ghost custom integration](https://gho
 DO NOT FORGET to replace the `<CONTENT_API_KEY>` placeholder with your own API key. Click on "save".
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy/dist/searchinghost-easy-basic.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@latest/dist/searchinghost-easy-basic.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -44,13 +44,19 @@ DO NOT FORGET to replace the `<CONTENT_API_KEY>` placeholder with your own API k
 </script>
 ```
 
+*__note__: if you prefer to modify your custom theme, paste that into your `default.hbs` next to the
+other scripts and it will work exactly the same way.*
+
 ![Installation step2](screenshots/readme/step2.png)
 
 3. Finally, add a link in the menu that open the search box. To do so, go to the "Design" section and add a new item. It can be in the "navigation" or "secondary navigation". You can name it with any label ("Search" feels natural) but the link **must** ends with `#searchinghost-easy`. Click on "save".
 
 ![Installation step3](screenshots/readme/step3.png)
 
-This is it, everything is setup! On you blog, a "search" button should shows up in the menu bar. Click it to see the magic happens! If you do not like the default search bar look, check out the next section to change it 😃
+This is it, everything is setup! On you blog, a "search" button should shows up in the menu bar. Click it to see the magic happens! If you do not like the default search bar look, check out the next [template section](#templates) to change it 😃
+
+Also, do not forget to check the [Question & Answers section](#qa) to get all the useful tips and the 
+[configuration section](#configuration) for more advanced setup.
 
 
 ## Templates
@@ -81,7 +87,7 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/basic/
 #### Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy/dist/searchinghost-easy-basic.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@latest/dist/searchinghost-easy-basic.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -105,7 +111,7 @@ Live demo: https://gmfmi.github.io/searchinghost-easy/backpack/
 #### Installation
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy/dist/searchinghost-easy-backpack.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@latest/dist/searchinghost-easy-backpack.js"></script>
 <script>
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -181,9 +187,9 @@ new SearchinGhostEasy({
 
 Yes, when a new version of SearchinGhostEasy is available you will get it automatically.
 
-If you do not want this behaviour, you can add a specific version in the URL. For example, with the
-`basic` template, use: `https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@1.0.2/dist/searchinghost-easy-basic.js`
-(replace `1.0.2` with the desired version).
+If you do not want this behaviour, replace `@latest` with a specific version in the URL. For example, with the
+`basic` template, use: `https://cdn.jsdelivr.net/gh/gmfmi/searchinghost-easy@1.0.0/dist/searchinghost-easy-basic.js`
+(replace `1.0.0` with the desired version).
 
 ### Can I use a search icon instead of a word?
 

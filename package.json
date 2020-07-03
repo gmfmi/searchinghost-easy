@@ -1,12 +1,13 @@
 {
   "name": "searchinghost-easy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Zero code & easy to setup search bar for Ghost CMS (blog)",
   "main": "src/searchinghost-easy.js",
   "scripts": {
     "build": "gulp build",
     "watch": "gulp watch",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "purge": "curl 'https://purge.jsdelivr.net/gh/gmfmi/searchinghost-easy/dist/searchinghost-easy-basic.js' && curl 'https://purge.jsdelivr.net/gh/gmfmi/searchinghost-easy/dist/searchinghost-easy-backpack.js'"
   },
   "repository": {
     "type": "git",

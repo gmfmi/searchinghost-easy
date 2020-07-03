@@ -31,7 +31,7 @@
             left: 0;
             right: 0;
             overflow-x: hidden;
-            overflow-y: auto;
+            overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
             background-color: #fff;
             text-rendering: optimizeLegibility;
@@ -205,6 +205,7 @@
     </style>
 
     <script>
+        var openDelay = 300;
         var closeDelay = 300;
         var searchinghostOptions = {
             template: function (post) {

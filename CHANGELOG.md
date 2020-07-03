@@ -8,6 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 (empty)
 
+## [1.0.3] - 2020-07-03
+### Changed
+- Backpack theme: hide the posts found counter when the search bar is empty.
+
+### Fixed
+- Prevent background main page from "jumping" when disabling its scroll.
+
 ## [1.0.2] - 2020-06-25
 ### Fixed
 - Only for iOS devices, fix scrolling/unresponsive screen when closing the search pop-up.
