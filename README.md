@@ -26,13 +26,17 @@ Oh! I forgot to say the most important thing: **it works with ALL Ghost themes**
 
 To install the search bar to your Ghost blog, follow these quick steps:
 
-1. First, create a "custom integration". On the left side, go to the "integration" section, click on "+ Add custom integration" and give it the name "SearchinGhostEasy".
+#### 1. Create a "custom integration"
+
+On the left side panel, go to the "integration" section, click on "+ Add custom integration" and give it the name "SearchinGhostEasy".
 Ghost has generated your own and unique "Content API Key" (it should look like `ba094afe723d802f235af61d51`). Keep it somewhere, you will need it for the next step.
 If you need more help, visit the official [Ghost custom integration](https://ghost.org/integrations/custom-integrations/) page.
 
 ![Installation step1](screenshots/readme/step1.png)
 
-2. Then, from the "Code Injection" section, copy/paste the following code chunk into the "Site Footer" area.  
+#### 2. Add the script to your site
+
+From the "Code Injection" section, copy/paste the following code chunk into the "Site Footer" area.  
 DO NOT FORGET to replace the `<CONTENT_API_KEY>` placeholder with your own API key. Click on "save".
 
 ```html
@@ -49,11 +53,19 @@ other scripts and it will work exactly the same way.*
 
 ![Installation step2](screenshots/readme/step2.png)
 
-3. Finally, add a link in the menu that open the search box. To do so, go to the "Design" section and add a new item. It can be in the "navigation" or "secondary navigation". You can name it with any label ("Search" feels natural) but the link **must** ends with `#searchinghost-easy`. Click on "save".
+#### 3a. \[option] Set a menu search "word"
+
+Finally, add a link in the menu that open the search box. To do so, go to the "Design" section and add a new item. It can be in the "navigation" or "secondary navigation". You can name it with any label ("Search" feels natural) but the link **must** ends with `#searchinghost-easy`. Click on "save".
 
 ![Installation step3](screenshots/readme/step3.png)
 
-This is it, everything is setup! On you blog, a "search" button should shows up in the menu bar. Click it to see the magic happens! If you do not like the default search bar look, check out the next [template section](#templates) to change it 😃
+#### 3b. \[option] Set a menu search "icon"
+
+If you prefer using a seach icon instead of a word, please jump to [this section](#can-i-use-a-search-icon-instead-of-a-word).
+
+---
+
+🎉 This is it, everything is setup! On you blog, a "search" button should shows up in the menu bar. Click it to see the magic happens! If you do not like the default search bar look, check out the next [template section](#templates) to change it 😃
 
 Also, do not forget to check the [Question & Answers section](#qa) to get all the useful tips and the 
 [configuration section](#configuration) for more advanced setup.

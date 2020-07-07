@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 (empty)
 
+## [1.0.4] - 2020-07-07
+### Changed
+- Upgrade searchinghost version to `v1.4.0`.
+
+### Fixed
+- The iframe height was not correct since the last version, rollback to `100%` instead of `100vh`.
+
+
 ## [1.0.3] - 2020-07-03
 ### Changed
 - Backpack theme: hide the posts found counter when the search bar is empty.

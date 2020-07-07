@@ -1,4 +1,4 @@
-const DEFAULT_SEARCHINGHOST_VERSION = '1.3.3';
+const DEFAULT_SEARCHINGHOST_VERSION = '1.4.0';
 const SEARCHINGHOST_URL_TEMPLATE = `https://cdn.jsdelivr.net/npm/searchinghost@{{version}}/dist/searchinghost.min.js`;
 
 export default class SearchinGhostEasy {
@@ -25,7 +25,7 @@ export default class SearchinGhostEasy {
         this.iframeElement = document.createElement('iframe');
         this.iframeElement.setAttribute('id', 'searchinghost-easy');
         // we use 'visibility' instead of 'display' to get a better CSS transition support
-        this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:-1;top:0;left:0;width:100vw;height:100vh;';
+        this.iframeElement.style = 'visibility:hidden;border:none;position:fixed;z-index:-1;top:0;left:0;width:100vw;height:100%;';
         document.body.appendChild(this.iframeElement);
         
         this.iframeWindow = this.iframeElement.contentWindow;
