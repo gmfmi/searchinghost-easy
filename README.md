@@ -144,8 +144,9 @@ new SearchinGhostEasy({
     contentApiKey: '<CONTENT_API_KEY>', // mandatory
     apiUrl: 'http://example.com',
     searchinghostOptions: {},
-    searchinghostVersion: '1.3.3',
+    searchinghostVersion: '1.0.0',
     zIndex: 200,
+    placeholder: "Search",
     debug: false
 });
 ```
@@ -185,6 +186,18 @@ new SearchinGhostEasy({
 > Set the HTML iframe element `z-index` to a specific value.
 >
 > default: `2147483647`
+
+- **placeholder** (string)
+> Change the default "Search" search bar placeholder with yours. Especially helpful for non english websites.   
+> Any browser compatible (e.g. UTF-8) characters can be used. Here are some working examples:
+> 
+> ```
+> placeholder: "Rechercher..."      # in french with dots
+> placeholder: "Αναζήτηση"          # in greek
+> placeholder: "With emojis! 🔥🤯"   # use with caution
+> ```
+>
+> default: `"Search"`
 
 - **debug** (boolean)
 > Set it to `true` to enable the debug mode. This will output the final SearchinGhost configuration used

@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 (empty)
 
+
+## [1.1.0] - 2020-07-23
+### Added
+- A new "placeholder" option to change the default "Search" word shown in the input search bar.
+
+
 ## [1.0.4] - 2020-07-07
 ### Changed
 - Upgrade searchinghost version to `v1.4.0`.

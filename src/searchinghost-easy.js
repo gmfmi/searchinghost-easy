@@ -17,6 +17,7 @@ export default class SearchinGhostEasy {
         this.apiUrl = args.apiUrl || window.location.origin;
         this.searchinghostOptions = args.searchinghostOptions || {};
         this.searchinghostVersion = args.searchinghostVersion || DEFAULT_SEARCHINGHOST_VERSION;
+        this.placeholder = args.placeholder || "Search";
         this.zIndex = args.zIndex || 2147483647; // max int-32 value, used by most browsers
         this.debug = args.debug || false;
     }
@@ -49,6 +50,9 @@ export default class SearchinGhostEasy {
         this.themeCloseButton = this.iframeDocument.getElementById('sge-close');
         this.themeContainer = this.iframeDocument.getElementById("sge-container");
         this.themeInput = this.iframeDocument.getElementById('sge-input');
+
+        // Set search bar input placeholder text
+        this.themeInput.placeholder = this.placeholder;
     }
 
     initSearchEngine() {
