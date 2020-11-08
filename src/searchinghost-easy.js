@@ -1,4 +1,4 @@
-const DEFAULT_SEARCHINGHOST_VERSION = '1.4.0';
+const DEFAULT_SEARCHINGHOST_VERSION = '1.6.2';
 const SEARCHINGHOST_URL_TEMPLATE = `https://cdn.jsdelivr.net/npm/searchinghost@{{version}}/dist/searchinghost.min.js`;
 
 export default class SearchinGhostEasy {

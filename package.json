@@ -1,6 +1,6 @@
 {
   "name": "searchinghost-easy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Zero code & easy to setup search bar for Ghost CMS (blog)",
   "main": "src/searchinghost-easy.js",
   "scripts": {
@@ -32,13 +32,13 @@
     "dist/"
   ],
   "devDependencies": {
-    "browser-sync": "^2.26.10",
+    "browser-sync": "^2.26.13",
     "delete": "^1.1.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "gulp-flatmap": "^1.0.2",
     "gulp-header": "^2.0.9",
-    "gulp-html-minifier-terser": "^6.0.0",
+    "gulp-html-minifier-terser": "^6.0.1",
     "gulp-rename": "^2.0.0",
     "gulp-replace": "^1.0.0",
     "webpack-stream": "^5.2.1"
