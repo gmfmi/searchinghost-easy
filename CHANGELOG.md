@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 (empty)
 
 
+## [1.1.2] - 2022-03-18
+### Fixed
+- Search input left padding unexpected bihavior on iOS devices
+
+
 ## [1.1.1] - 2020-11-08
 ### Changed
 - Upgrade searchinghost version to `v1.6.2` to include latest features.
