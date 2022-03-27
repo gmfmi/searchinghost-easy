@@ -220,12 +220,16 @@ If you do not want this behaviour, replace `@latest` with a specific version in 
 
 Yes, you can do it by using a script or by updating your theme (see [right below](#can-i-use-it-in-a-custom-theme) for the theme option).
 
-For the script option, the easier way is to use jQuery. If you don't know jQuery, no worry, just copy/paste the line
-starting with `$("ul.nav")` **above** the SearchinGhostEasy section.
+For the script option, just copy/paste the 3 first lines of the following example **BEFORE** the SearchinGhostEasy initialization section.
+
+Please note this code sample has been designed to work on the default "Casper" Ghost theme. You might need some adjustments to make it work on
+your own website (i.e. the query selector and the created inner javascript element).
 
 ```html
 <script>
-    $("ul.nav").append('<li class="nav-search"><a href="#searchinghost-easy"><svg style="fill:#fff" width="14px" height="14px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z"/></svg></a></li>');
+    var searchIcon = '<svg style="fill:#fff" width="14px" height="14px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z"/></svg>'
+    var menu = document.querySelector('ul.nav');
+    menu.insertAdjacentHTML('beforeend', `<li class="nav-search"><a href="#searchinghost-easy">${searchIcon}</a></li>`);
     
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
@@ -233,11 +237,13 @@ starting with `$("ul.nav")` **above** the SearchinGhostEasy section.
 </script>
 ```
 
-Otherwise, if you prefer to add the icon in the secondary menu (next to the social links), use that one:
+Otherwise, if you prefer to add the icon to the secondary menu (next to the social links), use that one:
 
 ```html
 <script>
-    $(".social-links").append('<a class="social-link" href="#searchinghost-easy"><svg style="fill:#fff" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z"/></svg></a>');
+    var searchIcon = '<svg style="fill:#fff" width="16px" height="16px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M508.875,493.792L353.089,338.005c32.358-35.927,52.245-83.296,52.245-135.339C405.333,90.917,314.417,0,202.667,0 S0,90.917,0,202.667s90.917,202.667,202.667,202.667c52.043,0,99.411-19.887,135.339-52.245l155.786,155.786 c2.083,2.083,4.813,3.125,7.542,3.125c2.729,0,5.458-1.042,7.542-3.125C513.042,504.708,513.042,497.958,508.875,493.792z M202.667,384c-99.979,0-181.333-81.344-181.333-181.333S102.688,21.333,202.667,21.333S384,102.677,384,202.667 S302.646,384,202.667,384z"/></svg>'
+    var menu = document.querySelector('.social-links');
+    menu.insertAdjacentHTML('beforeend', `<a class="social-link" href="#searchinghost-easy">${searchIcon}</a>`);
 
     new SearchinGhostEasy({
         contentApiKey: '<CONTENT_API_KEY>'
